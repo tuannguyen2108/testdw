@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DISASTER WARNING SYSTEM</title>
+  <link rel="icon" type="image/png" href="img/tab-ic.png" />
+  <style>
+    :root {
+      --background-color: #f2f2f2;
+      --primary-color: #58b1e5;
+      --text-color: #0a0d59;
+    }
+
+    body {
+      font-family: "Noto Sans", sans-serif;
+      background-color: var(--background-color);
+      background-image: url('images/nen.jpg');
+      background-size: cover;
+      /* Bao phủ toàn bộ */
+      background-repeat: no-repeat;
+      /* Không lặp lại ảnh */
+      background-position: center;
+      /* Đặt ảnh ở giữa */
+      background-attachment: fixed;
+      /* Giữ cố định ảnh nền khi cuộn trang */
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* Đảm bảo chiều cao tối thiểu */
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    #hd_container {
+      font-size: 30px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+    }
+
+    #hd_line {
+      margin: 0 auto 15px;
+      background-color: #fff;
+      height: 3px;
+      width: 80%;
+    }
+
+    #currentDateTime {
+      color: #020110;
+      font-weight: 700;
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sensor-box {
+      background-color: rgb(253, 249, 249);
+      border: 1px solid #474646;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      margin: 20px;
+      flex: 1 0 350px;
+      max-width: 350px;
+      height: 350px;
+      border-radius: 15px;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .sensor-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon {
+      width: 150px;
+    }
+
+    strong {
+      font-size: 35px;
+    }
+
+    .level-text {
+      font-size: 30px;
+      /* Đặt kích thước chữ bằng với giá trị phần trăm */
+      color: var(--text-color);
+      font-weight: 500;
+      margin-top: -5px;
+      /* Điều chỉnh khoảng cách nếu cần */
+    }
+
+    span {
+      font-size: 24px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    #mua,
+    #gio,
+    #thongBao {
+      color: var(--text-color);
+      font-size: 5x0px;
+      font-weight: 500;
+    }
+
+    .soil-moisture-title {
+      font-size: 25px;
+    }
+  </style>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DISASTER WARNING SYSTEM</title>
+  <link rel="icon" type="image/jpg" href="img/nen.jpg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap">
+  <style>
+    :root {
+      --background-color: #f2f2f2;
+      --primary-color: #d9e1ee;
+      --text-color: #337ad6;
+    }
+
+    body {
+      font-family: "Roboto", sans-serif;
+      background-color: var(--background-color);
+      background-image: url('images/nen.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header h3 {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .title {
+      font-family: 'Anton', sans-serif;
+      font-size: 48px; /* Kích thước lớn hơn cho nổi bật */
+      color: var(--text-color);
+      text-transform: uppercase; /* In hoa cho thêm phần nổi bật */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div id="hd_container">
+      <h3>
+        <span class="title">DISASTER WARNING SYSTEM</span><br>
+        Thành viên:<br>
+        Nguyễn Châu Thảo Nguyên - Châu Quang Trí<br>
+        Giáo viên hướng dẫn: Nguyễn Thị Châu
+      </h3>
+    </div>
+    <div id="hd_line"></div>
+  </header>
+
+
+  <main>
+    <div class="sensor-box">
+      <p><strong style="color: rgb(33, 62, 224); font-size: 40px">Thông báo khẩn từ hệ thống</strong></p>
+      <p id="thongBao" style="font-size: 50px">Bình thường</p>
+    </div>
+
+    <div class="sensor-box">
+      <p><strong style="font-size: 30px">Ảnh Từ Camera Giám Sát</strong></p>
+      <img id="image" src="" alt="Ảnh từ Firebase Storage" />
+    </div>
+
+    <div class="sensor-box">
+      <p><strong style="font-size: 30px">Độ Ẩm Đất (Hạn Hán)</strong></p>
+      <img class="icon" src="images/soil_moisture.png" alt="Soil Moisture Icon" />
+      <div class="humidity-info">
+        <p>
+          <span id="doam_1_percent" style="font-size: 40px">0</span>
+          <span style="font-size: 40px">%</span>
+        </p>
+        <p id="doam_1_level" class="level-text">Không mưa</p>
+      </div>
+    </div>
+
+    <div class="sensor-box">
+      <p><strong style="font-size: 30px">Độ Ẩm Đất (Đất Ẩm)</strong></p>
+      <img class="icon" src="images/soil_moisture.png" alt="Soil Moisture Icon" />
+      <div class="humidity-info">
+        <p>
+          <span id="doam_2_percent" style="font-size: 40px">0</span>
+          <span style="font-size: 40px">%</span>
+        </p>
+        <p id="doam_2_level" class="level-text">Không mưa</p>
+      </div>
+    </div>
+
+
+
+    <div class="sensor-box">
+      <p><strong style="font-size: 30px">Lượng Mưa</strong></p>
+      <img class="icon" src="images/rain.png" alt="Rain Icon" />
+      <p id="mua" style="font-size: 40px">Không mưa</p>
+    </div>
+
+    <div class="sensor-box">
+      <p><strong style="font-size: 30px">Tốc Độ Gió</strong></p>
+      <img class="icon" src="images/win.png" alt="Wind Icon" />
+      <p id="gio" style="font-size: 40px">0 m/s</p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+    import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+    import { getStorage, ref as storageRef, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDGDe3ltJIShsj_vA6SkSdfOKGoG1ifsOg",
+      authDomain: "tttn-b2a55.firebaseapp.com",
+      databaseURL: "https://tttn-b2a55-default-rtdb.firebaseio.com",
+      projectId: "tttn-b2a55",
+      storageBucket: "tttn-b2a55.appspot.com",
+      messagingSenderId: "153503281641",
+      appId: "1:153503281641:web:52ff1e6eb8e5b35cf31200",
+      measurementId: "G-H84P3QGT8H",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database = getDatabase(app);
+    const storage = getStorage(app);
+
+    // Function to write data to Firebase
+    function writeData(path, value) {
+      set(ref(database, path), value);
+    }
+
+    // Hàm để cập nhật ảnh từ Firebase Storage
+    function updateImage() {
+      const imageRef = storageRef(storage, "data/photo.jpg");
+      getDownloadURL(imageRef)
+        .then(function (url) {
+          document.getElementById("image").src = url;
+          document.getElementById("image").style.width = "300px";
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+    // Cập nhật ảnh mỗi 2 giây
+    setInterval(updateImage, 2000);
+    updateImage(); // Load image on page load
+
+    // Listen for sensor data changes and update the display
+    onValue(ref(database, "Sensor/DoAmDat1"), (snapshot) => {
+      document.getElementById("doam_1").textContent = snapshot.val();
+    });
+
+    onValue(ref(database, "Sensor/DoAmDat2"), (snapshot) => {
+      document.getElementById("doam_2").textContent = snapshot.val();
+    });
+
+    onValue(ref(database, "Sensor/Mua"), (snapshot) => {
+      const muaValue = snapshot.val();
+      const muaElement = document.getElementById("mua");
+      switch (muaValue) {
+        case 0:
+          muaElement.textContent = "Không có mưa";
+          break;
+        case 1:
+          muaElement.textContent = "Có mưa nhỏ";
+          break;
+        case 2:
+          muaElement.textContent = "Có mưa vừa";
+          break;
+        case 3:
+          muaElement.textContent = "Có mưa to";
+          break;
+        default:
+          muaElement.textContent = "Dữ liệu không hợp lệ";
+          break;
+      }
+    });
+
+    onValue(ref(database, "Sensor/Gio"), (snapshot) => {
+      const gioValue = snapshot.val();
+      const gioElement = document.getElementById("gio");
+      gioElement.textContent = `${gioValue} m/s`;
+    });
+
+    onValue(ref(database, "Sensor/ThongBao"), (snapshot) => {
+      const thongBaoValue = snapshot.val();
+      const thongBaoElement = document.getElementById("thongBao");
+      switch (thongBaoValue) {
+        case 0:
+          thongBaoElement.textContent = "Bình thường";
+          break;
+        case 1:
+          thongBaoElement.textContent = "Cảnh báo mưa lớn";
+          break;
+        case 2:
+          thongBaoElement.textContent = "Cảnh báo có nguy cơ sạt lở";
+          break;
+        default:
+          thongBaoElement.textContent = "Dữ liệu không hợp lệ";
+          break;
+      }
+    });
+
+    // Cập nhật mức độ ẩm đất cho Hạn Hán
+    onValue(ref(database, "Sensor/DoAmDat1"), (snapshot) => {
+      const doam1Value = snapshot.val();
+      document.getElementById("doam_1_percent").textContent = doam1Value;
+      const doam1Level = document.getElementById("doam_1_level");
+
+      if (doam1Value <= 20) {
+        doam1Level.textContent = "Khô kiệt";
+      } else if (doam1Value <= 40) {
+        doam1Level.textContent = "Khô hạn";
+      } else if (doam1Value <= 60) {
+        doam1Level.textContent = "Khá khô";
+      } else if (doam1Value <= 80) {
+        doam1Level.textContent = "Hơi ẩm";
+      } else {
+        doam1Level.textContent = "Ẩm đủ";
+      }
+    });
+
+    // Cập nhật mức độ ẩm đất cho Đất Ẩm
+    onValue(ref(database, "Sensor/DoAmDat2"), (snapshot) => {
+      const doam2Value = snapshot.val();
+      document.getElementById("doam_2_percent").textContent = doam2Value;
+      const doam2Level = document.getElementById("doam_2_level");
+
+      if (doam2Value <= 20) {
+        doam2Level.textContent = "Khô kiệt";
+      } else if (doam2Value <= 40) {
+        doam2Level.textContent = "Khô hạn";
+      } else if (doam2Value <= 60) {
+        doam2Level.textContent = "Khá khô";
+      } else if (doam2Value <= 80) {
+        doam2Level.textContent = "Hơi ẩm";
+      } else {
+        doam2Level.textContent = "Ẩm đủ";
+      }
+    });
+
+  </script>
+</body>
+
+</html>
